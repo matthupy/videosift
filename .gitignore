@@ -1,0 +1,40 @@
+# Binaries (anchored to repo root so cmd/extract/ directory is not ignored)
+/videosift
+/videosift.exe
+/extract
+/extract.exe
+*.dll
+*.so
+*.dylib
+*.dll
+*.so
+*.dylib
+
+# Test artifacts
+*.test
+*.out
+/frames/
+/tmp/
+
+# Large video test fixtures — add small fixtures explicitly with git lfs or
+# git add -f testdata/sample.mp4 if they are small enough to commit directly.
+testdata/*.mp4
+testdata/*.mov
+testdata/*.mkv
+testdata/*.avi
+testdata/*.webm
+
+# Dependency cache
+vendor/
+
+# Go workspace
+go.work
+go.work.sum
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
