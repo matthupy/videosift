@@ -12,8 +12,12 @@ import (
 	"github.com/matthupy/videosift"
 )
 
+// version is set at build time via -ldflags "-X main.version=<tag>".
+var version = "dev"
+
 func main() {
 	var (
+		showVersion = flag.Bool("version", false, "print version and exit")
 		input       = flag.String("i", "", "input video file (required)")
 		outputDir   = flag.String("o", "frames", "output directory for extracted PNGs")
 		threshold   = flag.Float64("threshold", 0.4, "scene change detection threshold [0.0–1.0]")
@@ -30,6 +34,11 @@ func main() {
 		asJSON      = flag.Bool("json", false, "print frame metadata as JSON to stdout")
 	)
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Println(version)
+		return
+	}
 
 	if *input == "" {
 		fmt.Fprintln(os.Stderr, "error: -i <input> is required")

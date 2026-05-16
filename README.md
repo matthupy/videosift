@@ -23,14 +23,50 @@ FFmpeg and FFprobe must be installed and available on `PATH`. No CGo or other na
 
 ## Installation
 
+As a library:
+
 ```bash
 go get github.com/matthupy/videosift
 ```
 
-CLI tool:
+CLI tool (pre-built, via Go toolchain):
 
 ```bash
 go install github.com/matthupy/videosift/cmd/extract@latest
+```
+
+## Building from source
+
+**Prerequisites:** Go 1.22+, FFmpeg/FFprobe on PATH, GNU make (optional).
+
+```bash
+git clone https://github.com/matthupy/videosift.git
+cd videosift
+```
+
+| Command | Description |
+|---|---|
+| `make build` | Compile the CLI to `./bin/extract` |
+| `make install` | Install the CLI to `$GOBIN` |
+| `make test` | Run all tests with the race detector |
+| `make vet` | Run `go vet` |
+| `make lint` | Run `golangci-lint` (must be [installed separately](https://golangci-lint.run/welcome/install/)) |
+| `make tidy` | Tidy `go.mod` / `go.sum` |
+| `make clean` | Remove `./bin/` |
+
+Without `make`, the equivalent Go commands are:
+
+```bash
+go build -o bin/extract ./cmd/extract   # build
+go install ./cmd/extract                # install
+go test ./... -race                     # test
+go vet ./...                            # vet
+```
+
+The CLI binary embeds the version string from the most recent git tag:
+
+```bash
+extract -version   # e.g. "v0.1.0" or "v0.1.0-3-gabcd1234-dirty"
 ```
 
 ## Library usage
@@ -61,6 +97,7 @@ When `WorkDir` is left empty, extracted PNGs are written to a temporary director
 extract -i input.mp4 [options]
 
 Options:
+  -version           Print version and exit
   -i string          Input video file (required)
   -o string          Output directory for extracted PNGs (default: frames)
   -threshold float   Scene change detection threshold 0.0–1.0 (default: 0.4)
