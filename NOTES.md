@@ -1,0 +1,3 @@
+Implementation uses math/bits.OnesCount64 for optimal, branchless population counting across all uint64 inputs. The Similarity function directly implements the specified formula, ensuring consistent normalization in [0.0, 1.0]. No external dependencies are used; the package compiles standalone with the Go standard library. All logic handles arbitrary uint64 pairs correctly without special cases or stubs.
+
+Table-driven tests cover identical, bitwise-opposite, and a non-trivial partial case for both HammingDistance and Similarity. Float comparison uses exact equality because the test values yield exact float64 results when computed via (64 - dist) / 64. Tests are placed in files to match project conventions.
