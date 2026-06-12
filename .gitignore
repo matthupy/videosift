@@ -3,6 +3,7 @@
 /videosift.exe
 /extract
 /extract.exe
+/bin/
 *.dll
 *.so
 *.dylib
