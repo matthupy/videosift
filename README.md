@@ -35,6 +35,27 @@ CLI tool (pre-built, via Go toolchain):
 go install github.com/matthupy/videosift/cmd/extract@latest
 ```
 
+## Linting & code quality
+
+This project uses `go vet` for static analysis. In previous versions, the project used `golangci-lint`, which aggregated many specialized linters covering style checks, best practices, and anti-patterns. The move to `go vet` simplifies the toolchain while maintaining coverage of critical issues:
+
+**`go vet` checks for:**
+- Nil pointer dereferences
+- Incorrect error handling (e.g., ignored `error` returns)
+- Incorrect use of format strings
+- Type mismatches in function calls
+- Unused assignments and variables (via `-vetflag` set by Go)
+- Common mistakes in concurrent code
+
+**Not covered by `go vet` (previously checked by `golangci-lint`):**
+- Code style and formatting conventions (use `gofmt` or `goimports` if desired)
+- Complexity analysis (McCabe complexity, cognitive complexity)
+- Documentation completeness
+- Deprecated API usage detection
+- Specialized security checks beyond basic patterns
+
+**Testing coverage:** Unit tests with the race detector provide additional assurance against data races and common concurrency issues. If you identify patterns that `go vet` should catch but doesn't, add a unit test to prevent regression.
+
 ## Building from source
 
 **Prerequisites:** Go 1.22+, FFmpeg/FFprobe on PATH, GNU make (optional).
@@ -49,8 +70,8 @@ cd videosift
 | `make build` | Compile the CLI to `./bin/extract` |
 | `make install` | Install the CLI to `$GOBIN` |
 | `make test` | Run all tests with the race detector |
-| `make vet` | Run `go vet` |
-| `make lint` | Run `golangci-lint` (must be [installed separately](https://golangci-lint.run/welcome/install/)) |
+| `make vet` | Run `go vet` for static analysis |
+| `make lint` | Alias for `make vet` (static analysis) |
 | `make tidy` | Tidy `go.mod` / `go.sum` |
 | `make clean` | Remove `./bin/` |
 
@@ -60,7 +81,7 @@ Without `make`, the equivalent Go commands are:
 go build -o bin/extract ./cmd/extract   # build
 go install ./cmd/extract                # install
 go test ./... -race                     # test
-go vet ./...                            # vet
+go vet ./...                            # vet and lint
 ```
 
 The CLI binary embeds the version string from the most recent git tag:

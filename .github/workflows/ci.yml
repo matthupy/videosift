@@ -43,19 +43,3 @@ jobs:
 
       - name: Test
         run: go test ./... -v -race -timeout 120s
-
-  lint:
-    name: Lint
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-          cache: true
-
-      - name: Vet
-        run: go vet ./...

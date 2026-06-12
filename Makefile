@@ -20,11 +20,14 @@ install:
 test:
 	go test ./... -race -timeout 120s
 
-## vet: run go vet
+## vet: run go vet (static analysis for correctness issues)
+# Checks for nil pointers, error handling, type mismatches, unused variables, and concurrency issues.
+# This replaces golangci-lint. For linting scope details, see README "Linting & code quality" section.
 vet:
 	go vet ./...
 
-## lint: run go vet (alias for vet)
+## lint: alias for vet (static analysis)
+# Runs the same static analysis as 'vet'. No style or complexity checks—relying on unit tests for quality gates.
 lint: vet
 
 ## tidy: tidy go.mod and go.sum
