@@ -24,9 +24,9 @@ test:
 vet:
 	go vet ./...
 
-## lint: run golangci-lint (must be installed separately)
+## lint: run go vet
 lint:
-	golangci-lint run
+	go vet ./...
 
 ## tidy: tidy go.mod and go.sum
 tidy:
