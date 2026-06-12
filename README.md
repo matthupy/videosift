@@ -50,7 +50,7 @@ cd videosift
 | `make install` | Install the CLI to `$GOBIN` |
 | `make test` | Run all tests with the race detector |
 | `make vet` | Run `go vet` |
-| `make lint` | Run `golangci-lint` (must be [installed separately](https://golangci-lint.run/welcome/install/)) |
+| `make lint` | Alias of `make vet` — linting uses the built-in `go vet`, no extra tools required |
 | `make tidy` | Tidy `go.mod` / `go.sum` |
 | `make clean` | Remove `./bin/` |
 
