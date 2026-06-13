@@ -50,7 +50,7 @@ cd videosift
 | `make install` | Install the CLI to `$GOBIN` |
 | `make test` | Run all tests with the race detector |
 | `make vet` | Run `go vet` |
-| `make lint` | Run `golangci-lint` (must be [installed separately](https://golangci-lint.run/welcome/install/)) |
+| `make lint` | Run `go vet` |
 | `make tidy` | Tidy `go.mod` / `go.sum` |
 | `make clean` | Remove `./bin/` |
 
@@ -68,6 +68,29 @@ The CLI binary embeds the version string from the most recent git tag:
 ```bash
 extract -version   # e.g. "v0.1.0" or "v0.1.0-3-gabcd1234-dirty"
 ```
+
+## Code quality and linting
+
+This project uses `go vet`, the built-in Go static analysis tool, for code quality checks. This is an intentional dependency-reduction strategy: `go vet` is part of the standard Go toolchain and requires no external setup.
+
+### Linting scope
+
+`go vet` catches:
+- Unreachable code
+- Type mismatches and Printf formatting errors
+- Unused variables and assignments
+- Suspicious code patterns
+
+`go vet` does **not** enforce:
+- Style conventions (naming, formatting)
+- Complex linter rules (dependency checks, unsafe usage patterns)
+- Custom project conventions
+
+If you need more comprehensive linting beyond `go vet`, you can optionally run:
+- **gofmt** — code formatting (`go fmt ./...`)
+- **goimports** — unused import cleanup (`go run golang.org/x/tools/cmd/goimports@latest -w ./...`)
+
+Run linting locally with `make lint` or `go vet ./...` before submitting pull requests.
 
 ## Library usage
 
