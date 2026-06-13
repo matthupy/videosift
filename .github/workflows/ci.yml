@@ -38,6 +38,10 @@ jobs:
       - name: Build
         run: go build ./...
 
+      # Lint step uses go vet (standard Go tooling) instead of external linters like golangci-lint.
+      # This is an intentional trade-off for reduced external dependencies and faster CI.
+      # Coverage is narrower (no style/convention checks), but covers critical bugs and type issues.
+      # See README for details on linting scope and rationale.
       - name: Lint
         run: go vet ./...
 
