@@ -96,12 +96,10 @@ func applyDefaults(cfg *Config) {
 	if cfg.HashAlgo == "" {
 		cfg.HashAlgo = HashPHash
 	}
-	if cfg.HammingThreshold == 0 {
-		cfg.HammingThreshold = 8
-	}
-	if cfg.HashResizeWidth == 0 {
-		cfg.HashResizeWidth = 256
-	}
+	// NOTE: HammingThreshold and HashResizeWidth are intentionally NOT defaulted
+	// here. Their zero value is a documented "disable" signal (HammingThreshold
+	// == 0 disables hash-based dedup; HashResizeWidth == 0 disables rescaling).
+	// DefaultConfig() seeds 8/256, so callers starting from it are unaffected.
 }
 
 func validateBinaries(cfg *Config) error {
