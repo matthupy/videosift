@@ -51,10 +51,9 @@ func TestApplyDefaults_otherFieldsStillDefaulted(t *testing.T) {
 	}
 }
 
-// TestExtractDedupDisabled_keepsAllCandidates proves that with the disable
-// sentinel (HammingThreshold == 0) the dedup pass — reached via the public
-// Extract path's value — keeps every candidate.
-func TestExtractDedupDisabled_keepsAllCandidates(t *testing.T) {
+// TestHammingDedupDisabled_keepsAllCandidates calls hammingDedup directly with
+// the disable sentinel (threshold == 0) and proves every candidate is kept.
+func TestHammingDedupDisabled_keepsAllCandidates(t *testing.T) {
 	cfg := Config{HammingThreshold: 0}
 	applyDefaults(&cfg)
 

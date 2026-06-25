@@ -36,6 +36,11 @@ const (
 
 // Config controls every tunable parameter of the extraction pipeline.
 // Use DefaultConfig() to obtain sensible defaults, then override as needed.
+//
+// Note the zero-value asymmetry: applyDefaults fills in every zero-valued
+// field except HammingThreshold and HashResizeWidth, whose zero value means
+// "disabled" rather than "use default". A from-scratch Config{} therefore
+// runs with hash dedup and resize off; use DefaultConfig() to get 8/256.
 type Config struct {
 	// Strategy toggles — all enabled by default.
 	Scene      bool
